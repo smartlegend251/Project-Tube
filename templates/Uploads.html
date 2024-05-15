@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>File Upload Example</title>
+    <link rel="stylesheet" href="/static/css/home.css">
+    
+
+    
+    <!-- <link rel="stylesheet" href="style.css"> -->
+  </head>
+  <body>
+    <style>
+        body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+  text-align: center;
+}
+
+h1 {
+  margin-top: 50px;
+}
+
+#upload-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#progress-container {
+  width: 100%;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+#progress-bar {
+  width: 0%;
+  height: 30px;
+  background-color: #4CAF50;
+}
+
+#progress-text {
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  line-height: 30px;
+}
+
+#error-msg {
+  color: red;
+  margin-top: 20px;
+}
+
+
+#drop-zone {
+        border: 2px dashed gray;
+        width: 300px;
+        height: 150px;
+        padding: 20px;
+        margin: 20px;
+        text-align: center;
+        font-size: 1.5em;
+      }
+    </style>
+
+
+<nav>
+  <img src="/static/symbol/logosymbol.png" class="toggle-btn1" height="30px" alt="^" >
+    <ul ><li>
+    </li>
+      <li style="margin-left: 30px;"> <button class="toggle-btn">&#9776;</button></li>
+      <li class="activenav"><a href="/home"><img src="/static/symbol/homesymbol.png " height="20px" alt="^">Home</a></li>
+      <li  class="lio"><a href="/upload">  <img src="/static/symbol/uploadsymbol.png" height="20px" alt="^"> Upload </a></li>
+      <li class="lio"><a href="/myvideos"><img src="/static/symbol/videosymbol.png" height="20px" alt="^">My Videos</a></li>
+    </ul>
+  </nav>
+
+  <div class="menu">
+    <ul class="uli">
+      <li class="li"><a class="a" href="#">Home</a></li>
+      <li class="li"><a class="a" href="#">About</a></li>
+      <li class="li"><a class="a" href="#">Services</a></li>
+      <li class="li"><button style="margin-top: 5px; margin-right: 7px; text-decoration: none; background: none; border: none; font-size: large; color: white;font: inherit" id="theme-btn">Theme</button></li>
+      
+   
+  <script src="/static/js/home.js"></script>
+  
+    <div class="menu">
+      <ul class="uli">
+        <li class="li"><a class="a" href="#">Home</a></li>
+        <li class="li"><a class="a" href="#">About</a></li>
+        <li class="li"><a class="a" href="#">Services</a></li>
+        <li class="li"><button style="margin-top: 5px; margin-right: 7px; text-decoration: none; background: none; border: none; font-size: large; color: white;font: inherit" id="theme-btn">Theme</button></li>
+        </ul>
+        </div>
+        
+
+    <div class="container" style="position: fixed; top: 5%; left: 30%;">
+      <h1>File Upload</h1>
+      <form id="upload-form" method="post" enctype="multipart/form-data">
+
+        <div id="drop-zone">
+          <p>Drag and drop files here, or click to select files</p>
+        </div>
+
+        <input type="file" id="file-input" name="video" multiple>
+        <button type="submit" id="upload-btn">Upload</button>
+      </form>
+      <div id="progress-container">
+        <div id="progress-bar"></div>
+        <div id="progress-text" style="color: black ; background-color: white;">0%</div>
+      </div>
+      <div id="message"></div>
+    </div>
+    <script>
+       const dropZone = document.getElementById('drop-zone');
+        const form = document.getElementById('upload-form');
+const fileInput = document.getElementById('file-input');
+const progressBar = document.getElementById('progress-bar');
+const progressText = document.getElementById('progress-text');
+const message = document.getElementById('message');
+
+
+
+dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('highlight');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('highlight');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('highlight');
+      fileInput.files = e.dataTransfer.files;
+    });
+
+
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', '/upload');
+  xhr.upload.addEventListener('progress', e => {
+    const percent = e.loaded / e.total * 100;
+    progressBar.style.width = `${percent}%`;
+    progressText.innerText = `${Math.round(percent)}%`;
+  });
+  xhr.addEventListener('load', () => {
+    if (xhr.status === 200) {
+      message.innerText = 'File uploaded successfully';
+      message.classList.remove('error');
+      fileInput.value = '';
+      progressBar.style.width = '0%';
+      progressText.innerText = '0%';
+    } else {
+      message.innerText = 'An error occurred while uploading the file';
+      message.classList.add('error');
+    }
+  });
+  xhr.send(new FormData(form));
+});
+
+    </script>
+    <!-- <script src="script.js"></script> -->
+  </body>
+</html>

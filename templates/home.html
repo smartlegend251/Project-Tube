@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/static/css/home.css">
+</head>
+<body>
+
+    <nav>
+      <img src="/static/symbol/logosymbol.png" class="toggle-btn1" height="30px" alt="^" >
+        <ul ><li>
+        </li>
+          <li style="margin-left: 30px;"> <button class="toggle-btn">&#9776;</button></li>
+          <li class="activenav"><a href="/home"><img src="/static/symbol/homesymbol.png " height="20px" alt="^">Home</a></li>
+          <li  class="lio"><a href="/upload">  <img src="/static/symbol/uploadsymbol.png" height="20px" alt="^"> Upload </a></li>
+          <li class="lio"><a href="/myvideos"><img src="/static/symbol/videosymbol.png" height="20px" alt="^">My Videos</a></li>
+        </ul>
+      </nav>
+
+      <div class="menu">
+        <ul class="uli">
+          <li class="li"><a class="a" href="#">Home</a></li>
+          <li class="li"><a class="a" href="#">About</a></li>
+          <li class="li"><a class="a" href="#">Services</a></li>
+          <li class="li"><button style="margin-top: 5px; margin-right: 7px; text-decoration: none; background: none; border: none; font-size: large; color: white;font: inherit" id="theme-btn">Theme</button></li>
+          
+        </ul>
+      </div>
+      <!-- <div class="menu">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+        <ul class="ul">
+          <li class="li"><a class="a" href="#">Home</a></li>
+          <br><br>
+          <li class="li"><a class="a" href="#">About</a></li>
+          <br><br>
+          <li class="li"><a class="a" href="#">Contact</a></li>
+        </ul>
+      </div> -->
+      <!-- <div class="sidenav">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+        <a href="#">Link 4</a>
+      </div> -->
+
+<!-- 
+
+      <ul>
+        {% for video in videos %}
+            <li>
+                <a href="/videos/{{ video }}">{{ video }}</a>
+            </li>
+        {% endfor %}
+    </ul> -->
+
+<div style="margin: 50px; color: black;"><br> Home</div>
+
+      <div class="video_container" >
+<!-- jinja -->
+        {% for video in videos %}   
+        <div class="video-row">   
+        <div class="video-block">
+         <!-- <a href="home/{{ video }}">{{ video }}</a> -->
+         <!-- <a href="/landing" for="landing"> -->
+
+<a href="{{ url_for('playing', video=video ) }}">     
+  
+  <video id="landing" src="http://{{ host }}:{{ port }}/video?filename={{ video }}"  style="height: 150px;"   ></video>
+ 
+      <!-- </a> -->
+      <p for="landing" style="cursor: pointer; color: black;" >{{ video  }}</p>
+    </a>
+      <br><br>
+        <p></p>
+
+        
+                {% endfor %}
+
+
+              </div>
+      </div>
+
+      
+
+<script src="/static/js/home.js"></script>
+      
+</body>
+</html>

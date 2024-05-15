@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Video Player</title>
+    
+    <link rel="stylesheet" href="/static/css/videoplayer.css">
+  </head>
+  <body>
+
+
+    <a href="{{ url_for('home') }}"> <img src="/static/symbol/goback.png" alt="Go Back" style="width: 150px; ;" ></a>
+    <br><br>
+
+        <video class="videoa" autoplay  background id="video-1" style="width: 70%; height: auto; "  type="video/mp4" controls>
+         <source src="http://{{ host }}:{{ port }}/video?filename={{ video }}" >
+          <p> {{video }}</p>
+        </video>
+  </body>
+</html>

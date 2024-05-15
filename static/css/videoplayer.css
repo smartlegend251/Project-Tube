@@ -1,0 +1,10 @@
+/* @media screen and (max-width: 615px) { */
+
+    @media (max-width: 692px){
+    .videoa{
+      /* flex-basis: calc(50% - 20px); */
+    width: 150%;
+    height: auto;
+    /* margin-right: 150px;} */
+
+}   }
